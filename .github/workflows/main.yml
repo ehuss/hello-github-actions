@@ -13,7 +13,7 @@ jobs:
         echo `which rustc`
         rustup self uninstall -y
         rustc -V || echo "failed"
-        curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable --profile=minimal
+        curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain beta --profile=minimal
         echo "##vso[task.prependpath]$HOME/.cargo/bin"
         echo `which rustup`
         echo `which rustc`
@@ -24,3 +24,4 @@ jobs:
         echo `which rustup`
         echo `which rustc`
         rustc -V        
+        env
