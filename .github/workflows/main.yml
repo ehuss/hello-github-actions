@@ -4,14 +4,14 @@ on: push
 jobs:
   build:
     name: Hello world action
-    runs-on: windows-latest    
+    runs-on: macos-latest    
     steps:
     - name: foo
       shell: bash
       run: |
         echo `which rustup`
         echo `which rustc`
-        rustup self uninstall -y
+        rustup self uninstall -y || echo "uninstall not necessary"
         rustc -V || echo "failed"
         curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain beta --profile=minimal
         echo "##vso[task.prependpath]$HOME/.cargo/bin"
