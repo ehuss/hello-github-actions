@@ -4,24 +4,18 @@ on: push
 jobs:
   build:
     name: Hello world action
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest]
+    runs-on: windows-latest
     steps:
     - name: foo
       shell: bash
+      env:
+        TOOLCHAIN: stable
       run: |
-        echo `which rustup`
-        echo `which rustc`
-        rustup self uninstall -y || echo "uninstall not necessary"
-        rustc -V || echo "failed"
-        curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain beta --profile=minimal
-        echo "##[add-path]$HOME/.cargo/bin"
-        export PATH=$HOME/.cargo/bin:$PATH
-        echo `which rustup`
-        echo `which rustc`
-        rustc -V
+        rustup self update
+        rustup set profile minimal
+        rustup component remove --toolchain=$TOOLCHAIN rust-docs || echo "already removed"
+        rustup update $TOOLCHAIN
+        rustup default $TOOLCHAIN
     - name: bar
       shell: bash
       run: |
