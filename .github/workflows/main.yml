@@ -12,13 +12,13 @@ jobs:
         TOOLCHAIN: stable
       run: |
         rustup self update
+    - name: bar
+      shell: bash
+      run: |
         rustup set profile minimal
         rustup component remove --toolchain=$TOOLCHAIN rust-docs || echo "already removed"
         rustup update $TOOLCHAIN
         rustup default $TOOLCHAIN
-    - name: bar
-      shell: bash
-      run: |
         echo `which rustup`
         echo `which rustc`
         rustc -V        
