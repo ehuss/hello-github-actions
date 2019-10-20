@@ -9,7 +9,9 @@ jobs:
     - name: foo
       shell: bash
       run: |
-        echo HOME="$HOME" USERPROFILE="$USERPROFILE"
-        env
+        rustup self uninstall
+        curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain $TOOLCHAIN --profile=minimal
+        echo "##vso[task.prependpath]$HOME/.cargo/bin"
         echo `which rustup`
         echo `which rustc`
+        rustc -V
