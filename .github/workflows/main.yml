@@ -9,9 +9,18 @@ jobs:
     - name: foo
       shell: bash
       run: |
+        echo `which rustup`
+        echo `which rustc`
         rustup self uninstall -y
+        rustc -V || echo "failed"
         curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable --profile=minimal
         echo "##vso[task.prependpath]$HOME/.cargo/bin"
         echo `which rustup`
         echo `which rustc`
         rustc -V
+    - name: bar
+      shell: bash
+      run: |
+        echo `which rustup`
+        echo `which rustc`
+        rustc -V        
