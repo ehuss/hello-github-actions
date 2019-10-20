@@ -4,7 +4,10 @@ on: push
 jobs:
   build:
     name: Hello world action
-    runs-on: macos-latest    
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
     - name: foo
       shell: bash
@@ -14,7 +17,7 @@ jobs:
         rustup self uninstall -y || echo "uninstall not necessary"
         rustc -V || echo "failed"
         curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain beta --profile=minimal
-        echo "##vso[task.prependpath]$HOME/.cargo/bin"
+        echo "##[add-path]$HOME/.cargo/bin"
         export PATH=$HOME/.cargo/bin:$PATH
         echo `which rustup`
         echo `which rustc`
